@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="denne-mappen-trengs-ikke-roeres/er-du-synsk.css"
+    />
+
+    <!--
+    [x] Math.random for å sette en av de to boksene som riktig.
+    [x] For hver gang bruker klikker på boks, settes en av dem på
+        nytt til å være riktig
+    [x] Bruker starter med 5 liv
+    [x] Bruker mister liv hvis de får feil, får liv hvis de får riktig
+    [x] Bruker får poeng når de svarer riktig
+    [] Hvis bruker kommer opp i 3,5,7 poeng får de ekstra liv
+    [] Bruker vinner med 10 poeng. Innholdet settes til en tom string og bruker
+       får beskjed om at de har vunnet.
+    [] Tillegsfunksjon: Game Over
+   -->
+
+    <style>
+      button {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(235, 181, 181);
+        margin-right: 20px;
+        cursor: pointer;
+        border: none;
+      }
+
+      .hide {
+        display: none;
+      }
+    </style>
+    <title>Er du synsk?</title>
+  </head>
+  <body>
+    <header>
+      <h1>Er du synsk?</h1>
+    </header>
+
+    <div id="to-hide">
+      <button id="box1-btn">Denne?</button>
+      <button id="box2-btn">Eller denne?</button>
+    </div>
+
+    <div id="number-of-lives-div"></div>
+
+    <p id="number-of-right-answers-div">Antall riktige: 0</p>
+
+    <p id="number-of-wrong-answers-div">Antall feil: 0</p>
+
+    <div id="output-div">
+      <p>Klikk på en av boksene for å begynne spillet</p>
+    </div>
+
+    <script>
+      var outputDiv = document.getElementById("output-div");
+      var numberWrongs = document.getElementById("number-of-wrong-answers-div");
+      var numberRights = document.getElementById("number-of-right-answers-div");
+      var box1 = document.getElementById("box1-btn");
+      var box2 = document.getElementById("box2-btn");
+      var lives = document.getElementById("number-of-lives-div");
+      var toHide = document.getElementById("to-hide");
+
+      box1.onclick = handleClick;
+      box2.onclick = handleClick;
+
+      var amountCorrect = 0;
+      var amountWrong = 0;
+      var lifeLeft = 5;
+
+      for (var i = 0; i < lifeLeft; i++) {
+        lives.innerHTML += '<img src="images/heart.png" style="width: 60px" />';
+      }
+
+      function handleClick() {
+        var txt;
+        var randomBox = Math.floor(Math.random() * 2 + 1);
+
+        if (randomBox === 1) {
+          txt = "Det er riktig, her har du ett nytt liv!";
+          amountCorrect++;
+          numberRights.innerHTML = `Antall riktige: ${amountCorrect}`;
+          lifeLeft++;
+          if (
+            amountCorrect === 3 ||
+            amountCorrect === 5 ||
+            amountCorrect === 7
+          ) {
+            lifeLeft++;
+          }
+        } else {
+          txt = "Det var dessverre feil. Du mister ett liv.";
+          amountWrong++;
+          numberWrongs.innerHTML = `Antall feil: ${amountWrong}`;
+          lifeLeft--;
+        }
+
+        lives.innerHTML = "";
+
+        if (amountCorrect < 10) {
+          for (var i = 0; i < lifeLeft; i++) {
+            lives.innerHTML +=
+              '<img src="images/heart.png" style="width: 60px" />';
+          }
+        } else {
+          txt = "GRATULERER, du har vunnet spillet!";
+          toHide.innerHTML = "";
+          numberWrongs.innerHTML = "";
+          numberRights.innerHTML = "";
+          lives.innerHTML = `<img src="images/winner.png" style="width: 500px" />`;
+        }
+        if (amountWrong === 10) {
+          txt = "Beklager, du har nå tapt spillet... Prøv igjen!";
+          toHide.innerHTML = "";
+          numberWrongs.innerHTML = "";
+          numberRights.innerHTML = "";
+          lives.innerHTML = `<img src="images/gameover.png" style="width: 500px" />`;
+        }
+        outputDiv.innerHTML = `<p>${txt}</p>`;
+      }
+    </script>
+  </body>
+</html>

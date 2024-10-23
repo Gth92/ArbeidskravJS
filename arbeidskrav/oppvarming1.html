@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppvarming 1</title>
+
+    <style>
+      img {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+    - Hver gang bruker klikker på knappen skal et tilfeldig antall bilder mellom 1-100 skrives ut.
+    - Når bruker klikker på knappen igjen må man først fjerne de som ble lagt til forrige gang, og så legge til et nytt tilfeldig ntall bilder.
+    - VALGFRI UTVIDELSE: Skriv også ut tilfeldige personer OG tilfeldig antall bilder.    
+     -->
+    <input id="add-images-btn" type="button" value="Legg til bilder" />
+    <p>Antall bilder: <span id="number-of-images-span">0</span></p>
+    <div id="output-div"></div>
+
+    <script>
+      // HTML objekter
+      var addImagesBtn = document.getElementById("add-images-btn");
+      addImagesBtn.onclick = handleClick;
+
+      var outputDiv = document.getElementById("output-div");
+
+      var numberOfImages = document.getElementById("number-of-images-span");
+
+      // Funksjoner
+      function handleClick() {
+        outputDiv.innerHTML = "";
+        var randomNumber = Math.floor(Math.random() * 100 + 1);
+        numberOfImages.innerHTML = randomNumber;
+
+        for (var i = 1; i <= randomNumber; i++) {
+          outputDiv.innerHTML += `<img src="images/person2.png"/>`;
+        }
+      }
+    </script>
+  </body>
+</html>

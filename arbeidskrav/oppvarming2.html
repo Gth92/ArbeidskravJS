@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppvarming 2</title>
+
+    <style>
+      img {
+        height: 400px;
+      }
+
+      body {
+        padding-left: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Klikk på den du tror har en katt!</h3>
+    <img id="check-person1-img" src="images/person3.png" />
+    <img id="check-person2-img" src="images/person2.png" />
+    <div id="output-div"></div>
+
+    <script>
+      var outputDiv = document.getElementById("output-div");
+
+      var personOne = document.getElementById("check-person1-img");
+      personOne.onclick = setMessage;
+
+      var personTwo = document.getElementById("check-person2-img");
+      personTwo.onclick = setMessage;
+
+      function setMessage() {
+        var image;
+        var txt;
+        var randomNumber = Math.floor(Math.random() * 2 + 1);
+        if (randomNumber === 1) {
+          image = "cat.png";
+          txt = "Det er riktig! Personen har en katt :)";
+        } else {
+          image = "frog.png";
+          txt = "Det er feil.. Personen har en frosk!";
+        }
+        var message = `
+            <h3> ${txt} </h3>
+            <img src="images/${image}">
+            `;
+
+        outputDiv.innerHTML = message;
+      }
+    </script>
+  </body>
+</html>
